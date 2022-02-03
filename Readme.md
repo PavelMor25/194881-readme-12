@@ -1,7 +1,7 @@
 # Личный проект «Readme»
 
 * Студент: [Павел Морозов](https://up.htmlacademy.ru/php/12/user/194881).
-* Наставник: `Evgenii Bobkovw`.
+* Наставник: `Evgenii Bobkov`.
 
 ---
 
