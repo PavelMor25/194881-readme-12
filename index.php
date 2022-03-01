@@ -241,14 +241,14 @@ $user_name = 'Pavel Morozov'; // укажите здесь ваше имя
             </div>
         </div>
         <div class="popular__posts">
-        <?php foreach ($posts as $key => $value): ?>
+        <?php foreach ($posts as $value): ?>
             <article class="popular__post post <?= $value['type'] ?>">
                 <header class="post__header">
                     <h2><?= $value['title'] ?></h2>
                 </header>
                 <div class="post__main">
 
-                    <?php if ($value['type'] == 'post-quote'): ?>
+                    <?php if ($value['type'] === 'post-quote'): ?>
                         <blockquote>
                             <p>
                                 <?= $value['content'] ?>
@@ -256,7 +256,7 @@ $user_name = 'Pavel Morozov'; // укажите здесь ваше имя
                             <cite>Неизвестный Автор</cite>
                         </blockquote>
 
-                    <?php elseif ($value['type'] == 'post-link'): ?>
+                    <?php elseif ($value['type'] === 'post-link'): ?>
                         <div class="post-link__wrapper">
                             <a class="post-link__external" href="http://<?= $value['content'] ?>" title="Перейти по ссылке">
                                 <div class="post-link__info-wrapper">
@@ -271,15 +271,15 @@ $user_name = 'Pavel Morozov'; // укажите здесь ваше имя
                             </a>
                         </div>
 
-                    <?php elseif ($value['type'] == 'post-photo'): ?>
+                    <?php elseif ($value['type'] === 'post-photo'): ?>
                         <div class="post-photo__image-wrapper">
                             <img src="img/<?= $value['content'] ?>" alt="Фото от пользователя" width="360" height="240">
                         </div>
 
-                    <?php elseif ($value['type'] == 'post-video'): ?>
+                    <?php elseif ($value['type'] === 'post-video'): ?>
                         <div class="post-video__block">
                             <div class="post-video__preview">
-                                <?=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
+                                <?=embed_youtube_cover($value['content']); ?>
                                 <img src="img/coast-medium.jpg" alt="Превью к видео" width="360" height="188">
                             </div>
                             <a href="post-details.html" class="post-video__play-big button">
@@ -290,7 +290,7 @@ $user_name = 'Pavel Morozov'; // укажите здесь ваше имя
                             </a>
                         </div>
 
-                    <?php elseif ($value['type'] == 'post-text') : ?>
+                    <?php elseif ($value['type'] === 'post-text') : ?>
                         <p><?= $value['content'] ?></p>
 
                     <?php endif; ?>
