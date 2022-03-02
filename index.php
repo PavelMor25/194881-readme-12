@@ -25,6 +25,13 @@ $posts = [
         'avatar' => 'userpic-mark.jpg',
     ],
     [
+        'title' => 'Lorem Ipsum',
+        'type' => 'post-text',
+        'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+        'user_name' => 'Владик',
+        'avatar' => 'userpic.jpg',
+    ],
+    [
         'title' => 'Моя мечта',
         'type' => 'post-photo',
         'content' => 'coast-medium.jpg',
@@ -39,6 +46,20 @@ $posts = [
         'avatar' => 'userpic.jpg',
     ]
 ];
+
+function cut_text($text, $length = 300): string {
+    if (strlen($text) < $length) {
+        return "<p>".$text."</p>";
+    }
+    $split_text = explode(" ", $text);
+    $sum_text = 0;
+    $index = 0;
+    while ($sum_text < $length && $sum_text + strlen($split_text[$index]) < $length && count($split_text) != $index) {
+        $sum_text += strlen($split_text[$index]);
+        $index++;
+    }
+    return "<p>".implode(" ", array_slice($split_text, 0, $index))."..."."</p>"."<a class=\"post-text__more-link\" href=\"#\">Читать далее</a>";
+}
 
 $user_name = 'Pavel Morozov'; // укажите здесь ваше имя
 ?>
@@ -290,7 +311,7 @@ $user_name = 'Pavel Morozov'; // укажите здесь ваше имя
                         </div>
 
                     <?php elseif ($value['type'] === 'post-text') : ?>
-                        <p><?= $value['content'] ?></p>
+                        <p><?= cut_text($value['content']) ?></p>
 
                     <?php endif; ?>
                 </div>
