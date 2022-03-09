@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Проверяет переданную дату на соответствие формату 'ГГГГ-ММ-ДД'
  *
@@ -158,7 +159,8 @@ function check_youtube_url($url)
 {
     $id = extract_youtube_id($url);
 
-    set_error_handler(function () {}, E_WARNING);
+    set_error_handler(function () {
+    }, E_WARNING);
     $headers = get_headers('https://www.youtube.com/oembed?format=json&url=http://www.youtube.com/watch?v=' . $id);
     restore_error_handler();
 
@@ -263,16 +265,20 @@ function generate_random_date($index)
     return $dt;
 }
 
-function cut_text($text, $length = 300): string {
+function cut_text($text, $length = 300): string
+{
     if (strlen($text) < $length) {
-        return '<p>'.$text.'</p>';
+        return '<p>' . $text . '</p>';
     }
-    $split_text = explode(" ", $text);
+    $split_text = explode(' ', $text);
     $sum_text = 0;
     $index = 0;
-    while ($sum_text < $length && $sum_text + strlen($split_text[$index]) < $length && count($split_text) != $index) {
+    while ($sum_text + strlen($split_text[$index]) < $length && count($split_text) !== $index) {
         $sum_text += strlen($split_text[$index]);
         $index++;
     }
-    return '<p>'.implode(' ', array_slice($split_text, 0, $index)).'...'.'</p>'.'<a class=\'post-text__more-link\' href=\'#\'>Читать далее</a>';
+    return '<p>' . implode(
+            ' ',
+            array_slice($split_text, 0, $index)
+        ) . '...' . '</p>' . '<a class="post-text__more-link" href="#">Читать далее</a>';
 }
