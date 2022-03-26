@@ -44,6 +44,13 @@ $posts = [
         'content' => 'www.htmlacademy.ru',
         'user_name' => 'Владик',
         'avatar' => 'userpic.jpg',
+    ],
+    [
+        'title' => 'Лучшие курсы',
+        'type' => 'post-text',
+        'content' => 'Lirem iumdd ',
+        'user_name' => 'Владик',
+        'avatar' => 'userpic.jpg',
     ]
 ];
 
@@ -299,8 +306,7 @@ $user_name = 'Pavel Morozov'; // укажите здесь ваше имя
                         </div>
 
                     <?php elseif ($value['type'] === 'post-text') : ?>
-                        <?= cut_text($value['content']) ?>
-
+                        <?= cut_text($value['content'], 301) ?>
                     <?php endif; ?>
                 </div>
                 <footer class="post__footer">

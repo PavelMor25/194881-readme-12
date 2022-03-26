@@ -267,16 +267,20 @@ function generate_random_date($index)
 
 function cut_text($text, $length = 300): string
 {
-    if (strlen($text) < $length) {
+    $split_text = explode(' ', $text);
+
+    if (strlen(implode('', $split_text)) < $length) {
         return '<p>' . $text . '</p>';
     }
-    $split_text = explode(' ', $text);
+
     $sum_text = 0;
     $index = 0;
-    while ($sum_text + strlen($split_text[$index]) < $length && count($split_text) !== $index) {
+
+    while (count($split_text) !== $index && $sum_text + strlen($split_text[$index]) < $length) {
         $sum_text += strlen($split_text[$index]);
         $index++;
     }
+
     return '<p>' . implode(
             ' ',
             array_slice($split_text, 0, $index)
