@@ -306,7 +306,7 @@ $user_name = 'Pavel Morozov'; // укажите здесь ваше имя
                         </div>
 
                     <?php elseif ($value['type'] === 'post-text') : ?>
-                        <?= cut_text($value['content'], 301) ?>
+                        <?= cut_text($value['content']) ?>
                     <?php endif; ?>
                 </div>
                 <footer class="post__footer">
