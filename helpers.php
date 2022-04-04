@@ -286,3 +286,9 @@ function cut_text($text, $length = 300): string
             array_slice($split_text, 0, $index)
         ) . '...' . '</p>' . '<a class="post-text__more-link" href="#">Читать далее</a>';
 }
+
+function esc($str) {
+    $text = htmlspecialchars($str);
+
+    return $text;
+}
