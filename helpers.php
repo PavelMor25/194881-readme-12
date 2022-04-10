@@ -96,12 +96,12 @@ function db_get_prepare_stmt($link, $sql, $data = [])
  *
  * @param int $number Число, по которому вычисляем форму множественного числа
  * @param string $one Форма единственного числа: яблоко, час, минута
- * @param string $two Форма множественного числа для 2, 3, 4: яблока, часа, минуты
+ * @param string $now Форма множественного числа для 2, 3, 4: яблока, часа, минуты
  * @param string $many Форма множественного числа для остальных чисел
  *
  * @return string Рассчитанная форма множественнго числа
  */
-function get_noun_plural_form(int $number, string $one, string $two, string $many): string
+function get_noun_plural_form(int $number, string $one, string $now, string $many): string
 {
     $number = (int)$number;
     $mod10 = $number % 10;
@@ -118,7 +118,7 @@ function get_noun_plural_form(int $number, string $one, string $two, string $man
             return $one;
 
         case ($mod10 >= 2 && $mod10 <= 4):
-            return $two;
+            return $now;
 
         default:
             return $many;
@@ -285,33 +285,4 @@ function cut_text($text, $length = 300): string
             ' ',
             array_slice($split_text, 0, $index)
         ) . '...' . '</p>' . '<a class="post-text__more-link" href="#">Читать далее</a>';
-}
-
-function get_date_text($date_post)
-{
-    $date_one = date_create($date_post);
-    $date_two = date_create(date('Y-m-d H:i:s'));
-    $diff = date_diff($date_one, $date_two);
-    $diff_month = (int)$diff->format('%m');
-    $diff_day = (int)$diff->format('%d');
-    $diff_hour = (int)$diff->format('%h');
-    $diff_minute = (int)$diff->format('%i') ? (int)$diff->format('%i') : (int)$diff->format('%i') + 1;
-
-    if ($diff_day > 35) {
-        return $diff_month . ' ' . get_noun_plural_form($diff_month, 'месяц', 'месяца', 'месяцев');
-    }
-
-    if ($diff_day > 7) {
-        return floor($diff_day / 7) . ' ' . get_noun_plural_form(floor($diff_day / 7), 'неделя', 'недели', 'недель');
-    }
-
-    if ($diff_day >= 1) {
-        return $diff_day . ' ' . get_noun_plural_form($diff_day, 'день', 'дня', 'дней');
-    }
-
-    if ($diff_hour >= 1) {
-        return $diff_hour . ' ' . get_noun_plural_form($diff_hour, 'час', 'часа', 'часов');
-    }
-
-    return $diff_minute . ' ' . get_noun_plural_form($diff_minute, 'минута', 'минуты', 'минут');
 }
