@@ -96,12 +96,12 @@ function db_get_prepare_stmt($link, $sql, $data = [])
  *
  * @param int $number Число, по которому вычисляем форму множественного числа
  * @param string $one Форма единственного числа: яблоко, час, минута
- * @param string $two Форма множественного числа для 2, 3, 4: яблока, часа, минуты
+ * @param string $now Форма множественного числа для 2, 3, 4: яблока, часа, минуты
  * @param string $many Форма множественного числа для остальных чисел
  *
  * @return string Рассчитанная форма множественнго числа
  */
-function get_noun_plural_form(int $number, string $one, string $two, string $many): string
+function get_noun_plural_form(int $number, string $one, string $now, string $many): string
 {
     $number = (int)$number;
     $mod10 = $number % 10;
@@ -118,7 +118,7 @@ function get_noun_plural_form(int $number, string $one, string $two, string $man
             return $one;
 
         case ($mod10 >= 2 && $mod10 <= 4):
-            return $two;
+            return $now;
 
         default:
             return $many;
