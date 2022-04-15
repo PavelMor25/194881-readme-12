@@ -286,3 +286,35 @@ function cut_text($text, $length = 300): string
             array_slice($split_text, 0, $index)
         ) . '...' . '</p>' . '<a class="post-text__more-link" href="#">Читать далее</a>';
 }
+
+function get_date_text($date)
+{
+    $date_post = date_create($date);
+    $date_now = date_create(date('Y-m-d H:i:s'));
+
+    $weeks_for_print_month = 5;
+
+    $diff = date_diff($date_post, $date_now);
+    $diff_minute = (int)$diff->format('%i') ? (int)$diff->format('%i') : (int)$diff->format('%i') + 1;
+    $diff_hour = (int)$diff->format('%h') ? (int)$diff->format('%h') + round($diff_minute / 60): (int)$diff->format('%h');
+    $diff_day = (int)$diff->format('%d') ? (int)$diff->format('%d') + round($diff_hour / 24) : (int)$diff->format('%d');
+    $diff_month = (int)$diff->format('%m');
+
+    if ($diff_day > 7 * $weeks_for_print_month) {
+        return $diff_month . ' ' . get_noun_plural_form($diff_month, 'месяц', 'месяца', 'месяцев');
+    }
+
+    if ($diff_day > 7) {
+        return round($diff_day / 7) . ' ' . get_noun_plural_form(round($diff_day / 7), 'неделя', 'недели', 'недель');
+    }
+
+    if ($diff_day > 1) {
+        return $diff_day . ' ' . get_noun_plural_form($diff_day, 'день', 'дня', 'дней');
+    }
+
+    if ($diff_hour > 1) {
+        return $diff_hour . ' ' . get_noun_plural_form($diff_hour, 'час', 'часа', 'часов');
+    }
+
+    return $diff_minute . ' ' . get_noun_plural_form($diff_minute, 'минута', 'минуты', 'минут');
+}
