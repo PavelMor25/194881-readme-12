@@ -147,7 +147,7 @@
                             </div>
                             <div class="post__info">
                                 <b class="post__author-name"><?= $value['user_name'] ?></b>
-                                <time class="post__time" datetime="" >Дата</time>
+                                <time class="post__time" datetime="<?= $date ?>" title="<?= date('d.m.y H:i', strtotime($date)) ?>"><?= get_date_text($date) ?> назад</time>
                             </div>
                         </a>
                     </div>
