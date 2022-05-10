@@ -1,36 +1,22 @@
 
 INSERT INTO readme.roles (role_name) -- Добавление роли
-VALUES ('admin');
-
-INSERT INTO readme.roles (role_name) -- Добавление роли
-VALUES ('user');
+VALUES ('admin'),
+       ('user');
 
 INSERT INTO readme.users (email, login, password, role_id) -- Добавление пользователя
 VALUES ('test@mail.com', 'Петр', 'qwerty1', 1);
 
 INSERT INTO readme.users (email, login, password, avatar, role_id) -- Добавление пользователя
-VALUES ('larisa@mail.com', 'Лариса', 'sadWddddW3WD2', 'userpic-larisa-small.jpg', 2);
-
-INSERT INTO readme.users (email, login, password, avatar, role_id) -- Добавление пользователя
-VALUES ('vladik@mail.com', 'Владик', 'sadaaaaWdW3WD2', 'userpic.jpg', 2);
-
-INSERT INTO readme.users (email, login, password, avatar, role_id) -- Добавление пользователя
-VALUES ('viktor@mail.com', 'Виктор', 'sadWdsssW3WD2', 'userpic-mark.jpg', 2);
+VALUES ('larisa@mail.com', 'Лариса', 'sadWddddW3WD2', 'userpic-larisa-small.jpg', 2),
+       ('vladik@mail.com', 'Владик', 'sadaaaaWdW3WD2', 'userpic.jpg', 2),
+       ('viktor@mail.com', 'Виктор', 'sadWdsssW3WD2', 'userpic-mark.jpg', 2);
 
 INSERT INTO readme.types_post (type_name) -- Добавление типа поста
-VALUES ('post-text');
-
-INSERT INTO readme.types_post (type_name) -- Добавление типа поста
-VALUES ('post-quote');
-
-INSERT INTO readme.types_post (type_name) -- Добавление типа поста
-VALUES ('post-picture');
-
-INSERT INTO readme.types_post (type_name) -- Добавление типа поста
-VALUES ('post-video');
-
-INSERT INTO readme.types_post (type_name) -- Добавление типа поста
-VALUES ('post-link');
+VALUES ('post-text'),
+       ('post-quote'),
+       ('post-picture'),
+       ('post-video'),
+       ('post-link');
 
 INSERT INTO readme.posts (title, type_id, text_post, user_id, view_count) -- Добавление поста
 VALUES ('Цитата', 2, 'Мы в жизни любим только раз, а после ищем лишь похожих', 2, 444);
@@ -53,10 +39,8 @@ INSERT INTO readme.posts (title, type_id, link, user_id, view_count) -- Доба
 VALUES ('Лучшие курсы', 5, 'www.htmlacademy.ru', 3, 122);
 
 INSERT INTO readme.comments(user_id, post_id, content) -- Добавление комментария
-VALUES (1, 3, 'nice');
-
-INSERT INTO readme.comments(user_id, post_id, content) -- Добавление комментария
-VALUES (2, 2, 'согласен');
+VALUES (1, 3, 'nice'),
+       (2, 2, 'согласен');
 
 SELECT p.id, -- Cписок постов с сортировкой по популярности с именами авторов и типом контента
        p.created_at,
@@ -74,9 +58,22 @@ FROM readme.posts p
        JOIN readme.types_post t ON p.type_id = t.id
 ORDER BY view_count DESC;
 
-SELECT p.*  -- Cписок постов для конкретного пользователя
+SELECT p.id, -- Cписок постов для конкретного пользователя
+       p.created_at,
+       p.title,
+       p.text_post,
+       p.quote_author,
+       p.picture,
+       p.video,
+       p.link,
+       p.view_count,
+       t.type_name,
+       u.login
 FROM readme.posts p
-WHERE p.user_id = 2;
+       JOIN readme.users u ON p.user_id = u.id
+       JOIN readme.types_post t ON p.type_id = t.id
+WHERE p.user_id = 2
+ORDER BY view_count DESC;
 
 SELECT c.id, c.post_id, c.content, u.login -- Cписок комментариев для одного поста c логином пользователя
 FROM readme.comments c
