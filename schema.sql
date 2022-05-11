@@ -49,6 +49,7 @@ CREATE TABLE comments (
                         created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
                         user_id INT NOT NULL,
                         post_id INT NOT NULL,
+                        content MEDIUMTEXT NOT NULL,
                         PRIMARY KEY (id),
                         INDEX (user_id, post_id),
                         FOREIGN KEY (user_id) REFERENCES users(id),
