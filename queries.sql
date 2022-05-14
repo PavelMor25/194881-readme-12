@@ -11,12 +11,12 @@ VALUES ('larisa@mail.com', 'Лариса', 'sadWddddW3WD2', 'userpic-larisa-smal
        ('vladik@mail.com', 'Владик', 'sadaaaaWdW3WD2', 'userpic.jpg', 2),
        ('viktor@mail.com', 'Виктор', 'sadWdsssW3WD2', 'userpic-mark.jpg', 2);
 
-INSERT INTO readme.types_post (type_name) -- Добавление типа поста
-VALUES ('post-text'),
-       ('post-quote'),
-       ('post-picture'),
-       ('post-video'),
-       ('post-link');
+INSERT INTO readme.types_post (type_name, class_name, type_info) -- Добавление типа поста
+VALUES ('post-text', 'text', 'Текст'),
+       ('post-quote','quote', 'Цитата'),
+       ('post-picture', 'photo', 'Фото'),
+       ('post-video', 'video', 'Видео'),
+       ('post-link', 'link', 'ССылка');
 
 INSERT INTO readme.posts (title, type_id, text_post, user_id, view_count) -- Добавление поста
 VALUES ('Цитата', 2, 'Мы в жизни любим только раз, а после ищем лишь похожих', 2, 444);
@@ -85,5 +85,10 @@ VALUES (1, 1);
 
 INSERT INTO readme.subscriptions (user_sub, user_author) -- Добавление подписки пользователя
 VALUES (1, 2);
+
+SELECT id, -- Получение списка типов постов для фильтра
+       class_name,
+       type_info
+FROM readme.types_post;
 
 
