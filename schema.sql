@@ -23,6 +23,8 @@ CREATE TABLE users (
 CREATE TABLE types_post (
                           id INT AUTO_INCREMENT NOT NULL,
                           type_name VARCHAR (256) UNIQUE NOT NULL,
+                          class_name VARCHAR (256) UNIQUE NOT NULL,
+                          type_info VARCHAR (256) UNIQUE NOT NULL,
                           PRIMARY KEY (id)
 ) ENGINE INNODB;
 
